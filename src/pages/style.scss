@@ -1,0 +1,136 @@
+@import "../mixins.scss";
+
+.formContainer {
+  height: 100vh;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .formWrapper {
+    background: rgba(255, 255, 255, 0.667);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 20px 60px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+    @include mobile {
+      padding: 20px;
+    }
+    .logo {
+      color: #1755ad;
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    .title {
+      font-weight: bold;
+      // font-size: 24px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      .processing {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p {
+          font-size: 16px;
+        }
+        .loadingSpinner {
+          width: 36px;
+          height: 36px;
+
+          .spinner {
+            & .path {
+              stroke: hsla(0, 0%, 0%, 0.724);
+            }
+            height: 30px;
+            width: 30px;
+          }
+        }
+      }
+
+      input {
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        width: 280px;
+
+        @include mobile {
+          width: 250px;
+        }
+        &:focus {
+          outline: none;
+        }
+
+        &::placeholder {
+          color: rgb(175, 175, 175);
+        }
+      }
+      button {
+        background-color: #7b96ec;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 10px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .labelWithSelectedImg {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        justify-content: space-between;
+        label {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          font-size: 12px;
+          gap: 5px;
+          font-weight: 500;
+          color: #7b96ec;
+          width: max-content;
+
+          img {
+            width: 20px;
+            aspect-ratio: 1/1;
+          }
+
+          span {
+            font-size: 15px;
+          }
+          &:hover {
+            opacity: 0.5;
+          }
+        }
+
+        .selectedImg {
+          color: gray;
+          font-size: 12px;
+          max-width: 90px;
+          white-space: nowrap;
+          overflow: scroll;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+      }
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #04152d;
+    }
+  }
+}

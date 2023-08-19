@@ -1,0 +1,48 @@
+.search {
+  border-bottom: 1px solid gray;
+
+  .searchForm {
+    padding: 10px;
+    display: flex;
+
+    input {
+      border-radius: 5px;
+      padding: 5px;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      flex: 1;
+      ::placeholder {
+        color: lightgray;
+      }
+    }
+
+    .loadingSpinner {
+      width: 50px;
+      height: 26px;
+
+      .spinner {
+        & .path {
+          stroke: hsl(0, 0%, 0%);
+        }
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    button {
+      background-color: white;
+      color: black;
+      font-size: 12px;
+      font-weight: bold;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.701);
+        color: white;
+      }
+    }
+  }
+}

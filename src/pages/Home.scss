@@ -1,0 +1,54 @@
+@import "../mixins.scss";
+
+.home {
+  height: 100vh;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    display: flex;
+    gap: 10px;
+    height: 90%;
+    width: 90%;
+    overflow: hidden;
+
+    @include mobile {
+      width: 100%;
+      height: 100%;
+      gap: 0;
+    }
+  }
+
+  .loginOrRegister {
+    background: rgba(255, 255, 255, 0.667);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    gap: 10px;
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .title {
+      font-size: 24px;
+      font-weight: 500;
+      color: black;
+    }
+
+    .controls {
+      display: flex;
+      gap: 20px;
+
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+}

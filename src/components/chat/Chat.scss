@@ -1,0 +1,43 @@
+@import "../../mixins.scss";
+
+.chat {
+  flex: 2;
+  background: rgba(255, 255, 255, 0.795);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  @include mobile {
+    box-shadow: none;
+    border-radius: 0;
+    height: 100vh;
+    width: 100vh;
+  }
+
+  .initialMessage {
+    color: rgb(10, 10, 10);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: max-content;
+  }
+
+  .chatInfo {
+    height: 50px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.829);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+  }
+
+  @include mobile {
+    flex: none;
+    width: 100%;
+  }
+}
