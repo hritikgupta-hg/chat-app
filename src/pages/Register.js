@@ -18,6 +18,39 @@ const Register = () => {
   const [inpEmail, setInpEmail] = useState("");
   const [inpPass, setInpPass] = useState("");
 
+  const [inpNameIsTouched, setInputNameIsTouched] = useState(false);
+  const [inpEmailIsTouched, setInputEmailIsTouched] = useState(false);
+  const [inpPasswordIsTouched, setInputPasswordIsTouched] = useState(false);
+
+  // console.log(img);
+  const validateDispayName = (name) => {
+    if (name.length > 0) return true;
+    return false;
+  };
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const validatePassword = (pass) => {
+    if (pass.length >= 6) {
+      return true;
+    } else return false;
+  };
+
+  const isInputNameValid = !inpNameIsTouched || validateDispayName(inpName);
+  const isInputEmailValid = !inpEmailIsTouched || validateEmail(inpEmail);
+  const isInputPasswordValid =
+    !inpPasswordIsTouched || validatePassword(inpPass);
+
+  const disabled =
+    !isInputNameValid || !isInputEmailValid || !isInputPasswordValid;
+
+  // console.log(disabled);
   const submitHandler = async (event) => {
     event.preventDefault();
 
@@ -95,33 +128,53 @@ const Register = () => {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <div className="logo">Chat App</div>
-        <div className="title">Register</div>
-        <form onSubmit={submitHandler}>
+        <div className="logo">ChatterBOX</div>
+        <form
+          onSubmit={() => {
+            if (disabled) return;
+            submitHandler();
+          }}
+        >
+          <div className="title">Register</div>
           <input
+            className={!isInputNameValid ? "invalid" : ""}
             type="text"
             placeholder="Name"
             onChange={(event) => setInpName(event.target.value)}
+            onBlur={() => setInputNameIsTouched(true)}
           />
+          {!isInputNameValid && (
+            <div className="errorMessage">Enter Valid Name</div>
+          )}
           <input
+            className={!isInputEmailValid ? "invalid" : ""}
             type="email"
             placeholder="email"
+            onBlur={() => setInputEmailIsTouched(true)}
             onChange={(event) => setInpEmail(event.target.value)}
           />
+          {!isInputEmailValid && (
+            <div className="errorMessage">Enter Valid Email</div>
+          )}
           <input
+            className={!isInputPasswordValid ? "invalid" : ""}
             type="password"
             placeholder="password"
+            onBlur={() => setInputPasswordIsTouched(true)}
             onChange={(event) => setInpPass(event.target.value)}
           />
-
+          {!isInputPasswordValid && (
+            <div className="errorMessage">
+              Password must contain at least 6 characters{" "}
+            </div>
+          )}
           <div className="labelWithSelectedImg">
             <label htmlFor="file">
               <img className="avatarIcon" src={addAvatar} />
               <span>Add Profile Picture</span>
             </label>
-            {<div className="selectedImg">{img?.name}</div>}
+            {img && <div className="selectedImg">{img.name}</div>}
           </div>
-
           <input
             type="file"
             style={{ display: "none" }}
@@ -129,14 +182,21 @@ const Register = () => {
             onChange={(e) => setImg(e.target.files[0])}
           />
 
-          {!signingUp && <button onClick={submitHandler}>Sign Up</button>}
+          {!signingUp && (
+            <button
+              className={disabled ? "disabled" : ""}
+              onClick={submitHandler}
+            >
+              Sign Up
+            </button>
+          )}
           {signingUp && (
             <div className="processing">
               <Spinner initial={true} />
               <p>signing up...</p>
             </div>
           )}
-          {err && <span>Something went wrong</span>}
+          {err && <div className="errorMessage">Something went wrong</div>}
         </form>
         <p>
           Do you have an account? <Link to="/Login">Login</Link>

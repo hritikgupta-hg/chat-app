@@ -26,18 +26,33 @@
     .logo {
       color: #1755ad;
       font-weight: bold;
-      font-size: 24px;
+      font-size: 30px;
     }
 
     .title {
       font-weight: bold;
+      text-align: center;
       // font-size: 24px;
     }
     form {
       display: flex;
       flex-direction: column;
       gap: 15px;
+      position: relative;
+      height: 386px;
+      justify-content: center;
+      margin: 15px 0;
+      .errorMessage {
+        position: relative;
+        color: red;
+        bottom: 10px;
+        width: 280px;
+        font-size: 12px;
 
+        @include mobile {
+          width: 250px;
+        }
+      }
       .processing {
         display: flex;
         align-items: center;
@@ -75,6 +90,14 @@
         &::placeholder {
           color: rgb(175, 175, 175);
         }
+
+        &.invalid {
+          border: red 0.5px solid;
+
+          &::placeholder {
+            color: red;
+          }
+        }
       }
       button {
         background-color: #7b96ec;
@@ -84,6 +107,12 @@
         border-radius: 10px;
         font-weight: bold;
         cursor: pointer;
+
+        &.disabled {
+          background-color: #acbdf6;
+          color: rgba(255, 255, 255, 0.705);
+          cursor: not-allowed;
+        }
       }
 
       .labelWithSelectedImg {
@@ -115,11 +144,14 @@
         }
 
         .selectedImg {
-          color: gray;
+          color: rgb(115, 95, 95);
           font-size: 12px;
           max-width: 90px;
           white-space: nowrap;
           overflow: scroll;
+          border: 0.1px black solid;
+          padding: 2px;
+          border-radius: 3px;
           &::-webkit-scrollbar {
             display: none;
           }

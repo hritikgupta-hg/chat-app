@@ -11,12 +11,29 @@ const Login = () => {
   const navigate = useNavigate();
   const [err, setErr] = useState(false);
   const [signingIn, setSigningIn] = useState(false);
+  const [inpEmail, setInpEmail] = useState("");
+  const [inpPass, setInpPass] = useState("");
+
+  const [inpEmailIsTouched, setInputEmailIsTouched] = useState(false);
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const isInputEmailValid = !inpEmailIsTouched || validateEmail(inpEmail);
+
+  const disabled = !isInputEmailValid;
 
   const submitHandler = async (event) => {
     event.preventDefault();
+
     setSigningIn(true);
-    const email = event.target[0].value;
-    const password = event.target[1].value;
+    const email = inpEmail;
+    const password = inpPass;
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -30,19 +47,45 @@ const Login = () => {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <div className="logo">Chat App</div>
-        <div className="title">Login</div>
-        <form onSubmit={submitHandler}>
-          <input type="email" placeholder="email" />
-          <input type="password" placeholder="password" />
-          {!signingIn && <button>Sign in</button>}
+        <div className="logo">ChatterBOX</div>
+        <form
+          onSubmit={() => {
+            if (disabled) return;
+            submitHandler();
+          }}
+        >
+          <div className="title">Login</div>
+          <input
+            className={!isInputEmailValid ? "invalid" : ""}
+            type="email"
+            placeholder="email"
+            onBlur={() => setInputEmailIsTouched(true)}
+            onChange={(e) => setInpEmail(e.target.value)}
+          />
+          {!isInputEmailValid && (
+            <div className="errorMessage">Enter Valid Email</div>
+          )}
+          <input
+            type="password"
+            placeholder="password"
+            onChange={(e) => setInpPass(e.target.value)}
+          />
+          {!signingIn && (
+            <button
+              className={disabled ? "disabled" : ""}
+              onClick={submitHandler}
+            >
+              Sign Up
+            </button>
+          )}
+
           {signingIn && (
             <div className="processing">
               <Spinner initial={true} />
               <p>signing in...</p>
             </div>
           )}
-          {err && <span>Something went wrong</span>}
+          {err && <div className="errorMessage">Something went wrong</div>}
         </form>
         <p>
           Do not have an account? <Link to="/register">Register</Link>
