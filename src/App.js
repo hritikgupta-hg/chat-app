@@ -37,6 +37,8 @@ function App() {
   const { width } = useSelector((state) => state.dimension);
   const { height } = useSelector((state) => state.dimension);
 
+  console.log(height);
+  console.log(width);
   function handleResize() {
     dispatch(
       dimensionActions.changeDimention({
@@ -49,7 +51,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       window.addEventListener("resize", handleResize);
-    }, 1000);
+    }, 5000);
 
     return () => {
       clearTimeout(timer);

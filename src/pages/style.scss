@@ -23,10 +23,18 @@
     @include mobile {
       padding: 20px;
     }
+
     .logo {
-      color: #1755ad;
-      font-weight: bold;
       font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      color: #1f63c2;
+      padding: 10px;
+      border-right: 1px solid #1f63c2;
+      border-bottom: 1px solid #1f63c2;
+      border-radius: 10px;
+      box-shadow: 1px 1px 2px 0 #1f63c2;
+      // background-color: rgba(255, 255, 255, 0.559);
     }
 
     .title {
@@ -92,10 +100,10 @@
         }
 
         &.invalid {
-          border: red 0.5px solid;
+          border: rgb(241, 95, 95) 0.5px solid;
 
           &::placeholder {
-            color: red;
+            color: pink;
           }
         }
       }

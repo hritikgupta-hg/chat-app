@@ -2,6 +2,9 @@
   padding: 10px;
   height: calc(100% - 160px);
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   &::-webkit-scrollbar {
     display: none;
   }

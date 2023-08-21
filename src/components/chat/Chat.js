@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
   const navigate = useNavigate();
+  const { width } = useSelector((state) => state.dimension);
   // const { width, height } = useSelector((state) => state.dimension);
   // // if (width > 1000) {
   // //   navigate("/");
@@ -40,7 +41,7 @@ const Chat = () => {
   // if (dimensions.width > 1000) navigate("/");
 
   const { user, chatId } = useSelector((state) => state.chat);
-  if (!user) navigate("/");
+  if (!user && width <= 1000) navigate("/");
 
   return (
     <div className="chat">

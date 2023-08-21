@@ -61,6 +61,7 @@ const Login = () => {
             placeholder="email"
             onBlur={() => setInputEmailIsTouched(true)}
             onChange={(e) => setInpEmail(e.target.value)}
+            autoFocus
           />
           {!isInputEmailValid && (
             <div className="errorMessage">Enter Valid Email</div>
@@ -74,6 +75,7 @@ const Login = () => {
             <button
               className={disabled ? "disabled" : ""}
               onClick={submitHandler}
+              disabled={disabled}
             >
               Sign Up
             </button>

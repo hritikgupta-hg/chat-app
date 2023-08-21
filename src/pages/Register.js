@@ -139,9 +139,10 @@ const Register = () => {
           <input
             className={!isInputNameValid ? "invalid" : ""}
             type="text"
-            placeholder="Name"
+            placeholder="Display name"
             onChange={(event) => setInpName(event.target.value)}
             onBlur={() => setInputNameIsTouched(true)}
+            autoFocus
           />
           {!isInputNameValid && (
             <div className="errorMessage">Enter Valid Name</div>
@@ -186,6 +187,7 @@ const Register = () => {
             <button
               className={disabled ? "disabled" : ""}
               onClick={submitHandler}
+              disabled={disabled}
             >
               Sign Up
             </button>
