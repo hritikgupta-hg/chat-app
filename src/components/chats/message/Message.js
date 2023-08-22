@@ -1,10 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Message.scss";
 import { auth } from "../../../firebase";
-import Img from "../../lazyLoadImage/Img";
+
+import Cross from "../../../assets/cross.png";
 import dayjs from "dayjs";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
+import Modal from "../../modal/Modal";
 
 const Message = ({ user, message }) => {
+  const [showPic, setShowPic] = useState(false);
   const ref = useRef();
 
   useEffect(() => {
@@ -27,7 +33,24 @@ const Message = ({ user, message }) => {
       </div>
       <div className="messageContent">
         {message.text.length > 0 && <div className="text">{message.text}</div>}
-        {message?.img && <Img src={message.img} />}
+        {message?.img && (
+          <LazyLoadImage
+            alt=""
+            effect="blur"
+            src={message.img}
+            onClick={() => setShowPic(true)}
+          />
+        )}
+        {showPic && (
+          <Modal onClose={() => setShowPic(false)}>
+            <LazyLoadImage alt="" effect="blur" src={message.img} />
+            <img
+              className="cross"
+              src={Cross}
+              onClick={() => setShowPic(false)}
+            />
+          </Modal>
+        )}
       </div>
     </div>
   );

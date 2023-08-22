@@ -8,37 +8,15 @@ import "./Chat.scss";
 import Messages from "../messages/Messages";
 import Input from "../input/Input";
 import { useNavigate } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import Modal from "../modal/Modal";
+import Cross from "../../assets/cross.png";
+import Back from "../../assets/back_arrow.png";
 
 const Chat = () => {
   const navigate = useNavigate();
   const { width } = useSelector((state) => state.dimension);
-  // const { width, height } = useSelector((state) => state.dimension);
-  // // if (width > 1000) {
-  // //   navigate("/");
-  // // }
-  // const navigate = useNavigate();
-
-  // const [dimensions, setDimensions] = useState({
-  //   height: window.innerHeight,
-  //   width: window.innerWidth,
-  // });
-
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setDimensions({
-  //       height: window.innerHeight,
-  //       width: window.innerWidth,
-  //     });
-  //   }
-
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
-  // if (dimensions.width > 1000) navigate("/");
+  const [showProfilePic, setShowProfilePic] = useState(false);
 
   const { user, chatId } = useSelector((state) => state.chat);
   if (!user && width <= 1000) navigate("/");
@@ -51,7 +29,30 @@ const Chat = () => {
       {user && (
         <>
           <div className="chatInfo">
+            {width <= 1000 && (
+              <img
+                className="back"
+                src={Back}
+                onClick={() => navigate("/")}
+              ></img>
+            )}
             <div>{user?.displayName}</div>
+            <img
+              className="userProfilePic"
+              src={user.photoURL}
+              onClick={() => setShowProfilePic(true)}
+            />
+            {showProfilePic && (
+              <Modal onClose={() => setShowProfilePic(false)}>
+                <LazyLoadImage alt="" effect="blur" src={user.photoURL} />
+                <img
+                  className="cross"
+                  src={Cross}
+                  onClick={() => setShowProfilePic(false)}
+                />
+              </Modal>
+            )}
+
             {/* <div className="chatIcons">
               <img src={Cam} />
               <img src={Add} />

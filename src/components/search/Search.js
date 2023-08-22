@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { chatActions } from "../../store/chatSlice";
 import {
   collection,
   query,
@@ -12,12 +14,18 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 
+import { useNavigate } from "react-router-dom";
+
 import "./Search.scss";
 import SearchResultItem from "../searchResultItem/SearchResultItem";
 import { auth } from "../../firebase";
 import Spinner from "../spinner/Spinner";
 
 const Search = () => {
+  const { width } = useSelector((state) => state.dimension);
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [users, setUsers] = useState(null);
   const [err, setErr] = useState(null);
@@ -49,6 +57,11 @@ const Search = () => {
 
   const handleKey = (event) => {
     event.code === "Enter" && handleSearch();
+  };
+
+  const userChatSelectHandler = (selectedUser) => {
+    dispatch(chatActions.changeUser(selectedUser));
+    if (width <= 1000) navigate("/home/chat");
   };
 
   const selectHandler = async (user) => {
@@ -87,6 +100,11 @@ const Search = () => {
           [combinedId + ".date"]: serverTimestamp(),
         });
       }
+      userChatSelectHandler({
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      });
     } catch (err) {}
     //create user chats
 

@@ -8,6 +8,8 @@ import { chatActions } from "../../store/chatSlice";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../spinner/Spinner";
 
+import UserChat from "../chat/userChat/UserChat";
+
 const Chats = () => {
   const { width } = useSelector((state) => state.dimension);
   // const { height } = useSelector((state) => state.dimension);
@@ -48,17 +50,7 @@ const Chats = () => {
       {loading && <Spinner initial={true} />}
       {!loading &&
         chats?.map((chat) => (
-          <div
-            onClick={() => userChatSelectHandler(chat[1].userInfo)}
-            key={chat[0]}
-            className="userChat"
-          >
-            <img src={chat[1].userInfo?.photoURL} />
-            <div className="userChatInfo">
-              <div className="title">{chat[1].userInfo?.displayName}</div>
-              <div className="latestMessage">{chat[1]?.lastMessage?.text}</div>
-            </div>
-          </div>
+          <UserChat chat={chat} userChatSelectHandler={userChatSelectHandler} />
         ))}
     </div>
   );
