@@ -1,0 +1,39 @@
+.userChat {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+  color: black;
+  border: none;
+
+  &:hover {
+    background-color: white;
+  }
+  img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .userChatInfo {
+    box-sizing: border-box;
+    overflow: hidden;
+    flex: 1;
+    padding: 10px;
+    height: 70px;
+    .title {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .latestMessage {
+      width: 90%;
+      font-size: 14px;
+      color: gray;
+      overflow: hidden;
+    }
+  }
+}

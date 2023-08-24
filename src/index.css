@@ -16,8 +16,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 
-  #overlays {
+  /* #overlays {
     position: absolute;
     top: 0;
     left: 0;
@@ -26,7 +27,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+  } */
 }
 
 code {

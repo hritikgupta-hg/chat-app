@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import Chat from "./components/chat/Chat";
 import { authActions } from "./store/authSlice";
 import { dimensionActions } from "./store/dimensionSlice";
+import ChatMobile from "./components/chat/chatMobile/ChatMobile";
 
 const router = createBrowserRouter([
   {
@@ -26,8 +27,8 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/home/chat",
-    element: <Chat />,
+    path: "/chat/:userId",
+    element: <ChatMobile />,
   },
 ]);
 

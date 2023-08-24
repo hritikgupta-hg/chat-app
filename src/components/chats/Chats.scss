@@ -15,39 +15,4 @@
       }
     }
   }
-  .userChat {
-    box-sizing: border-box;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    width: 100%;
-
-    &:hover {
-      background-color: white;
-    }
-    img {
-      height: 50px;
-      width: 50px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-
-    .userChatInfo {
-      overflow: hidden;
-      flex: 1;
-      .title {
-        font-size: 18px;
-        font-weight: 500;
-      }
-
-      .latestMessage {
-        width: 90%;
-        font-size: 14px;
-        color: gray;
-        overflow: hidden;
-      }
-    }
-  }
 }

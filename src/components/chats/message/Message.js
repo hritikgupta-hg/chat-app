@@ -15,7 +15,8 @@ const Message = ({ user, message }) => {
 
   useEffect(() => {
     ref.current?.scrollIntoView({ behaviour: "smooth" });
-  }, []);
+  }, [user]);
+
   const date = message.date;
   console.log(date.toDate());
   const messageClass = message.senderId === auth.currentUser.uid ? "owner" : "";

@@ -7,6 +7,10 @@
   align-items: center;
   justify-content: center;
 
+  @include mobile {
+    background: linear-gradient(45deg, rgb(227, 207, 242), rgb(218, 196, 235));
+  }
+
   .formWrapper {
     background: rgba(255, 255, 255, 0.667);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -22,6 +26,9 @@
 
     @include mobile {
       padding: 20px;
+      background: transparent;
+      box-shadow: none;
+      border: none;
     }
 
     .logo {

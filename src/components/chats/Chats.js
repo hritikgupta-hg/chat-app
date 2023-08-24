@@ -41,7 +41,7 @@ const Chats = () => {
 
   const userChatSelectHandler = (selectedUser) => {
     dispatch(chatActions.changeUser(selectedUser));
-    if (width <= 1000) navigate("/home/chat");
+    if (width <= 1000) navigate(`chat/${selectedUser.uid}`);
   };
 
   console.log(chats);

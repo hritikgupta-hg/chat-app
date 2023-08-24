@@ -5,6 +5,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import Modal from "../modal/Modal";
 import Img from "../lazyLoadImage/Img";
+import Cross from "../../assets/cross.png";
 
 const Navbar = () => {
   const [showProfilePic, setShowProfilePic] = useState(false);
@@ -20,6 +21,11 @@ const Navbar = () => {
         {showProfilePic && (
           <Modal onClose={() => setShowProfilePic(false)}>
             <Img src={auth.currentUser.photoURL} />
+            <img
+              className="cross"
+              src={Cross}
+              onClick={() => setShowProfilePic(false)}
+            />
           </Modal>
         )}
         <span>{auth.currentUser.displayName}</span>

@@ -77,7 +77,7 @@ const Input = ({ user, chatId }) => {
       [chatId + ".lastMessage"]: { text },
     });
 
-    await updateDoc(doc(db, "userChats", user.uid), {
+    await updateDoc(doc(db, "userChats", user?.uid), {
       [chatId + ".date"]: serverTimestamp(),
       [chatId + ".lastMessage"]: { text },
     });

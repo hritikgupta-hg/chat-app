@@ -1,0 +1,56 @@
+@import "../../../mixins.scss";
+
+.chatMobile {
+  height: 100vh;
+  width: 100vw;
+
+  .inputWithSelectedImg {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+  }
+  .chatInfo {
+    box-sizing: border-box;
+    height: 70px;
+    padding: 10px 30px;
+    background-color: rgba(0, 0, 0, 0.829);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    font-size: 20px;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    .back {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      &:hover {
+        filter: brightness(70%);
+      }
+    }
+    .userProfilePic {
+      box-sizing: border-box;
+      height: 50px;
+      width: 50px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px rgb(209, 184, 184) solid;
+      filter: brightness(120%);
+      cursor: pointer;
+      &:hover {
+        filter: brightness(100%);
+      }
+    }
+  }
+
+  @include mobile {
+    flex: none;
+    width: 100%;
+  }
+}

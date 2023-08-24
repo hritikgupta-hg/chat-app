@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Modal from "../modal/Modal";
 import Cross from "../../assets/cross.png";
-import Back from "../../assets/back_arrow.png";
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -29,13 +28,6 @@ const Chat = () => {
       {user && (
         <>
           <div className="chatInfo">
-            {width <= 1000 && (
-              <img
-                className="back"
-                src={Back}
-                onClick={() => navigate("/")}
-              ></img>
-            )}
             <div>{user?.displayName}</div>
             <img
               className="userProfilePic"
