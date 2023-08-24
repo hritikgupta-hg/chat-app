@@ -13,10 +13,11 @@
   }
 
   @include mobile {
+    box-sizing: border-box;
     position: sticky;
     top: 70px;
     left: 0;
-    height: calc(100% - 160px);
+    height: calc(100% - 140px);
     padding-bottom: 50px;
   }
 }
