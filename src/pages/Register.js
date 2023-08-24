@@ -17,6 +17,7 @@ const Register = () => {
   const [inpName, setInpName] = useState("");
   const [inpEmail, setInpEmail] = useState("");
   const [inpPass, setInpPass] = useState("");
+  const [profileURL, setProfileURL] = useState(null);
 
   const [inpNameIsTouched, setInputNameIsTouched] = useState(false);
   const [inpEmailIsTouched, setInputEmailIsTouched] = useState(false);
@@ -51,6 +52,70 @@ const Register = () => {
     !isInputNameValid || !isInputEmailValid || !isInputPasswordValid;
 
   // console.log(disabled);
+
+  // const uploadImg = async (file) => {
+  //   try {
+  //     const storageRef = ref(storage, email);
+  //     const uploadTask = uploadBytesResumable(storageRef, file);
+
+  //     uploadTask.on(
+  //       "state_changed",
+  //       (snapshot) => {
+  //         const progress =
+  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  //         console.log("Upload is " + progress + "% done");
+  //         switch (snapshot.state) {
+  //           case "paused":
+  //             console.log("Upload is paused");
+  //             break;
+  //           case "running":
+  //             console.log("Upload is running");
+  //             break;
+  //         }
+  //       },
+  //       (error) => {
+  //         setSigningUp(false);
+  //         setErr(true);
+  //       },
+  //       () => {
+  //         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+  //           profileURL = downloadURL;
+  //         });
+  //       }
+  //     );
+  //   } catch (error) {
+  //     setSigningUp(false);
+  //     setErr(true);
+  //   }
+  // };
+
+  const createNewUser = async (displayName, email, password, profilePicURL) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      await updateProfile(res.user, {
+        displayName,
+        photoURL: profilePicURL,
+      });
+
+      await setDoc(doc(db, "users", res.user.uid), {
+        uid: res.user.uid,
+        displayName,
+        email,
+        photoURL: profilePicURL,
+      });
+
+      await setDoc(doc(db, "userChats", res.user.uid), {});
+
+      setSigningUp(false);
+      navigate("/");
+    } catch (error) {
+      setErr(true);
+      setSigningUp(false);
+      console.log(error);
+    }
+  };
+
   const submitHandler = async (event) => {
     event.preventDefault();
 
@@ -60,65 +125,41 @@ const Register = () => {
     const email = inpEmail;
     const password = inpPass;
     const file = img;
+    console.log(file);
 
     try {
-      const storageRef = ref(storage, email);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      if (file) {
+        const storageRef = ref(storage, email);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
-          }
-        },
-        (error) => {
-          setSigningUp(false);
-          setErr(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            // console.log(downloadURL);
-
-            try {
-              const res = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-              );
-
-              await updateProfile(res.user, {
-                displayName,
-                photoURL: downloadURL,
-              });
-
-              await setDoc(doc(db, "users", res.user.uid), {
-                uid: res.user.uid,
-                displayName,
-                email,
-                photoURL: downloadURL,
-              });
-
-              await setDoc(doc(db, "userChats", res.user.uid), {});
-
-              setSigningUp(false);
-              navigate("/");
-            } catch (error) {
-              setErr(true);
-              setSigningUp(false);
-              console.log(error);
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused");
+                break;
+              case "running":
+                console.log("Upload is running");
+                break;
             }
-          });
-        }
-      );
+          },
+          (error) => {
+            setSigningUp(false);
+            setErr(true);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              createNewUser(displayName, email, password, downloadURL);
+            });
+          }
+        );
+      } else {
+        createNewUser(displayName, email, password, null);
+      }
     } catch (error) {
       setSigningUp(false);
       setErr(true);

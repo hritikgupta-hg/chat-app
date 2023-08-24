@@ -8,9 +8,10 @@ import "./Chat.scss";
 import Messages from "../messages/Messages";
 import Input from "../input/Input";
 import { useNavigate } from "react-router-dom";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import Img from "../lazyLoadImage/Img";
 import Modal from "../modal/Modal";
 import Cross from "../../assets/cross.png";
+import DefaultDisplayImage from "../../assets/user.png";
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -31,17 +32,18 @@ const Chat = () => {
             <div>{user?.displayName}</div>
             <img
               className="userProfilePic"
-              src={user.photoURL}
+              src={user.photoURL ? user.photoURL : DefaultDisplayImage}
               onClick={() => setShowProfilePic(true)}
             />
             {showProfilePic && (
               <Modal onClose={() => setShowProfilePic(false)}>
-                <LazyLoadImage alt="" effect="blur" src={user.photoURL} />
                 <img
                   className="cross"
                   src={Cross}
                   onClick={() => setShowProfilePic(false)}
                 />
+                {user.photoURL && <Img src={user.photoURL} />}
+                {!user.photoURL && <div>No Display Picture</div>}
               </Modal>
             )}
 

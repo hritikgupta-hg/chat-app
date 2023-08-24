@@ -3,19 +3,27 @@ import Modal from "../../modal/Modal";
 import Img from "../../lazyLoadImage/Img";
 import Cross from "../../../assets/cross.png";
 import "./userChat.scss";
+import DefaultDisplayImage from "../../../assets/user.png";
 
 const UserChat = ({ chat, userChatSelectHandler }) => {
   const [showProfilePic, setShowProfilePic] = useState(false);
   return (
     <div key={chat[0]} className="userChat">
       <img
-        src={chat[1].userInfo?.photoURL}
+        src={
+          chat[1].userInfo?.photoURL
+            ? chat[1].userInfo?.photoURL
+            : DefaultDisplayImage
+        }
         onClick={() => setShowProfilePic(true)}
       />
 
       {showProfilePic && (
         <Modal onClose={() => setShowProfilePic(false)}>
-          <Img src={chat[1].userInfo?.photoURL} />{" "}
+          {chat[1].userInfo?.photoURL && (
+            <Img src={chat[1].userInfo?.photoURL} />
+          )}
+          {!chat[1].userInfo?.photoURL && <div>No Display Picture</div>}
           <img
             className="cross"
             src={Cross}

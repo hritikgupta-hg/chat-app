@@ -11,6 +11,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import Messages from "../../messages/Messages";
 import Input from "../../input/Input";
 import Spinner from "../../spinner/Spinner";
+import DefaultDisplayImage from "../../../assets/user.png";
 
 const ChatMobile = () => {
   const params = useParams();
@@ -54,7 +55,7 @@ const ChatMobile = () => {
             <div>{user?.displayName}</div>
             <img
               className="userProfilePic"
-              src={user?.photoURL}
+              src={user?.photoURL ? user?.photoURL : DefaultDisplayImage}
               onClick={() => setShowProfilePic(true)}
             />
             {showProfilePic && (
