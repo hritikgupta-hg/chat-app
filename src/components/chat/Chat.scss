@@ -11,10 +11,6 @@
 
   @include mobile {
     display: none;
-    // box-shadow: none;
-    // border-radius: 0;
-    // height: 100vh;
-    // width: 100vh;
   }
 
   .initialMessage {
@@ -57,10 +53,5 @@
         filter: brightness(100%);
       }
     }
-  }
-
-  @include mobile {
-    flex: none;
-    width: 100%;
   }
 }

@@ -1,4 +1,12 @@
+@import "../../mixins.scss";
+
 .inputWithSelectedImg {
+  @include mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+
   .selectedImage {
     padding: 10px;
     background-color: rgba(235, 145, 145, 0.879);

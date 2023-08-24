@@ -26,6 +26,11 @@
     left: 0;
     z-index: 1;
 
+    @include mobile {
+      position: sticky;
+      top: 0;
+      left: 0;
+    }
     .back {
       width: 30px;
       height: 30px;
@@ -47,10 +52,5 @@
         filter: brightness(100%);
       }
     }
-  }
-
-  @include mobile {
-    flex: none;
-    width: 100%;
   }
 }
